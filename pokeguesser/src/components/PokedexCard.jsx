@@ -1,8 +1,9 @@
-export default function PokedexCard({ pokemon }) {
+export default function PokedexCard({ pokemon, onDelete }) {
     if (!pokemon) return <div>No Data</div>;
 
     return (
-        <div className="border rounded-lg p-4 bg-white shadow">
+        <div className="relative border rounded p-4 bg-white shadow-sm">
+
             <img
                 src={pokemon.sprites?.other?.['official-artwork']?.front_default}
                 alt={pokemon.name} className="w-full h-48 object-contain bg-gray-100"
@@ -43,6 +44,13 @@ export default function PokedexCard({ pokemon }) {
                     Abilities: {pokemon.abilities?.map(a => a.ability.name).join(" | ")}
                 </p>
             </div>
+
+            <div className="p-4">
+                <button type="button" onClick={() => onDelete?.(pokemon.name)} className="w-full bg-red-600 text-white px-3 py-2 hover:bg-red-700 text-sm rounded">
+                    Remove from pokedex
+                </button>
+            </div>
+
 
         </div>
     );
