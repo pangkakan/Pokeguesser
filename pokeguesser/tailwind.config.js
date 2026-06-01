@@ -6,16 +6,14 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        display: ['system-ui', 'sans-serif'],
-        body: ['system-ui', 'sans-serif'],
-      },
       colors: {
-        poke: {
-          red: '#e3350d',
-          dark: '#b81f00'
-        },
-        ink: '#2b2b35',
+        pokemon: {
+          red: '#FF6B6B',
+          blue: '#4ECDC4',
+          yellow: '#FFD93D',
+          purple: '#A8E6CF',
+          orange: '#FF8B94',
+        }
       },
     },
   },
