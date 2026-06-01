@@ -1,121 +1,84 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const handleSearch = () => {
+    console.log('Searching for:', searchTerm)
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="min-h-screen bg-white">
+      <nav className="border-b">
+        <div className="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold text-gray-800">Pokédoke</h1>
+          <div className="flex space-x-4">
+            <a href="/" className="text-blue-600 font-medium">Home</a>
+            <a href="/pokedex" className="text-gray-600 hover:text-blue-600">Pokédex</a>
+            <a href="/guess" className="text-gray-600 hover:text-blue-600">Who's That Pokémon?</a>
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+      </nav>
+
+      <div className="max-w-4xl mx-auto px-4 py-16">
+
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold text-gray-800 mb-4">
+            Welcome to Pokédoke
+          </h2>
+          <p className="text-gray-600 text-lg mb-8">
+            Search for Pokémon or explore our features
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <div className="max-w-md mx-auto">
+            <div className="flex">
+              <input
+                type="text"
+                placeholder="Search Pokémon..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:border-blue-500"
+              />
+              <button
+                onClick={handleSearch}
+                className="bg-blue-600 text-white px-6 py-3 rounded-r-lg hover:bg-blue-700"
+              >
+                Search
+              </button>
+            </div>
+          </div>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <div className="grid md:grid-cols-2 gap-8">
+
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow">
+            <h3 className="text-xl font-bold text-gray-800 mb-3">Pokédex</h3>
+            <p className="text-gray-600 mb-4">
+              Browse and explore all your Pokémon with their stats and information.
+            </p>
+            <a
+              href="/pokedex"
+              className="text-blue-600 hover:text-blue-700 font-medium"
+            >
+              View Pokédex →
+            </a>
+          </div>
+
+          <div className="border rounded-lg p-6 hover:shadow-md transition-shadow">
+            <h3 className="text-xl font-bold text-gray-800 mb-3">Who's That Pokémon?</h3>
+            <p className="text-gray-600 mb-4">
+              Test your knowledge by guessing Pokémon from silhouettes.
+            </p>
+            <a
+              href="/guess"
+              className="text-blue-600 hover:text-blue-700 font-medium"
+            >
+              Start Game →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 
