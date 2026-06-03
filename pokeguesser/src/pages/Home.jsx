@@ -26,7 +26,7 @@ export default function Home() {
             </p>
             <Link
               to="/pokedex"
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-red-600 hover:text-red-700 font-medium"
             >
               View Pokédex →
             </Link>
@@ -39,7 +39,7 @@ export default function Home() {
             </p>
             <Link
               to="/pokeguesser"
-              className="text-blue-600 hover:text-blue-700 font-medium"
+              className="text-red-600 hover:text-red-700  font-medium"
             >
               Start Game →
             </Link>
