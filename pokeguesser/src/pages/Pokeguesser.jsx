@@ -7,7 +7,7 @@ import HintPanel from "../components/HintPanel";
 import ScoreBoard from "../components/ScoreBoard";
 import GameControls from "../components/GameControls";
 
-import { getRandomSpecies, getPokemonFromSpecies } from "../utils/pokeApi.js";
+import { getRandomSpecies, getPokemonFromSpecies } from "../api/pokeApi.js";
 import { buildPokemonModel, normalizeName } from "../utils/pokemonHelpers.js";
 import { buildHintPool } from "../utils/hintHelpers.js";
 
