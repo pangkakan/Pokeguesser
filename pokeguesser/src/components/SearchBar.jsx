@@ -19,11 +19,11 @@ export default function SearchBar() {
           placeholder="Search pokémon by name or type..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:border-blue-500"
+          className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:border-red-500"
         />
         <button
           onClick={handleSearch}
-          className="bg-blue-600 text-white px-6 py-3 rounded-r-lg hover:bg-blue-700"
+          className="bg-red-600 text-white px-6 py-3 rounded-r-lg hover:bg-red-700"
         >
           Search
         </button>
