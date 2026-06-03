@@ -53,7 +53,6 @@ export default function Pokeguesser() {
 
   useEffect(() => {
     startRound(selectedGeneration);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleGenerationChange(value) {
@@ -95,14 +94,15 @@ export default function Pokeguesser() {
         <div className="mx-auto max-w-7xl">
           <header className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-indigo-600">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-red-600">
                 Guess that Pokémon
               </p>
               <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-6xl">
                 Who's that Pokémon?
               </h1>
               <p className="mt-3 max-w-2xl text-slate-600">
-                score, penalties and some hints now:)
+                Guess the name, collect points and use Hints strategically.
+                Every hint and wrong guess lowers the round score.
               </p>
             </div>
 
@@ -117,7 +117,10 @@ export default function Pokeguesser() {
 
           <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
             <section className="space-y-5">
-              <PokemonStage pokemon={pokemon} revealPercent={0} isSolved={isSolved} />
+              <PokemonStage
+                  pokemon={pokemon}
+                  isSolved={isSolved}
+              />
 
               <ScoreBoard
                   roundScore={roundScore}

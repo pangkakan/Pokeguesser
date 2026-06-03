@@ -1,6 +1,6 @@
 const STAGE_BACKGROUND = "/whos-that-pokemon.avif";
 
-export default function PokemonStage({ pokemon, revealPercent, isSolved }) {
+export default function PokemonStage({ pokemon, isSolved }) {
     return (
         <div className="flex w-full justify-center">
             <div
@@ -35,17 +35,6 @@ export default function PokemonStage({ pokemon, revealPercent, isSolved }) {
                             }`}
                         />
 
-                        {!isSolved && revealPercent > 0 && (
-                            <img
-                                src={pokemon.sprite}
-                                alt="Partly revealed Pokémon"
-                                draggable="false"
-                                className="absolute h-full w-full object-contain transition duration-500"
-                                style={{
-                                    clipPath: `inset(${100 - revealPercent}% 0 0 0)`,
-                                }}
-                            />
-                        )}
                     </div>
                 )}
             </div>
