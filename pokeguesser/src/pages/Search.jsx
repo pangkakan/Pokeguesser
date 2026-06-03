@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import SearchBar from '../components/SearchBar'
 import PokemonCard from '../components/PokemonCard'
+import { getPokemonByName, getPokemonByType, getPokemonByAmmount } from '../api/pokeApi'
 
 export default function Search() {
   const [pokemons, setPokemons] = useState([])
@@ -23,27 +24,24 @@ export default function Search() {
 
       if (searchTerm.trim()) {
         try {
-          const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`)
-          const details = await response.json()
+          const data = await getPokemonByName(searchTerm)
           const pokemon = {
-            id: details.id,
-            name: details.name,
-            image: details.sprites.front_default,
-            types: details.types.map(type => type.type.name)
+            id: data.id,
+            name: data.name,
+            image: data.sprites.front_default,
+            types: data.types.map(type => type.type.name)
           }
           setPokemons([pokemon])
           setSearchType('name')
         } catch (nameSearchError) {
           try {
-            const typeResponse = await fetch(`https://pokeapi.co/api/v2/type/${searchTerm.toLowerCase()}`)
-            const typeData = await typeResponse.json()
+            const typeData = await getPokemonByType(searchTerm)
 
             const pokemonOfType = typeData.pokemon.slice(0, 100)
 
             const pokemonDetails = await Promise.all(
               pokemonOfType.map(async (pokemonEntry) => {
-                const detailResponse = await fetch(pokemonEntry.pokemon.url)
-                const details = await detailResponse.json()
+                const details = await getPokemonByName(pokemonEntry.pokemon.name)
                 return {
                   id: details.id,
                   name: details.name,
@@ -61,13 +59,10 @@ export default function Search() {
           }
         }
       } else {
-        const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100')
-        const data = await response.json()
-
+        const data = await getPokemonByAmmount(100)
         const pokemonDetails = await Promise.all(
           data.results.map(async (pokemon) => {
-            const detailResponse = await fetch(pokemon.url)
-            const details = await detailResponse.json()
+            const details = await getPokemonByName(pokemon.name)
             return {
               id: details.id,
               name: details.name,

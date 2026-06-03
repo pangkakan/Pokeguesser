@@ -59,7 +59,7 @@ export default function PokemonCard({ pokemon }) {
         {isSaved ? (
           <button
             onClick={handleRemoveFromPokedex}
-            className="w-full bg-red-600 text-white px-3 py-2 text-sm rounded hover:bg-red-700 transition-colors"
+            className="w-full bg-red-800 text-white px-3 py-2 text-sm rounded hover:bg-red-900 transition-colors"
           >
             Remove from Pokédex
           </button>

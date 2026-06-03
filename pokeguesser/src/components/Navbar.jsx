@@ -20,25 +20,25 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-4">
             <Link
               to="/"
-              className={isActive('/') ? "text-blue-600 font-medium" : "text-gray-600 hover:text-blue-600"}
+              className={isActive('/') ? "text-red-600 font-medium" : "text-gray-600 hover:text-blue-600"}
             >
               Home
             </Link>
             <Link
               to="/search"
-              className={isActive('/search') ? "text-blue-600 font-medium" : "text-gray-600 hover:text-blue-600"}
+              className={isActive('/search') ? "text-red-600 font-medium" : "text-gray-600 hover:text-red-600"}
             >
               Search
             </Link>
             <Link
               to="/pokedex"
-              className={isActive('/pokedex') ? "text-blue-600 font-medium" : "text-gray-600 hover:text-blue-600"}
+              className={isActive('/pokedex') ? "text-red-600 font-medium" : "text-gray-600 hover:text-red-600"}
             >
               Pokédex
             </Link>
             <Link
               to="/pokeguesser"
-              className={isActive('/pokeguesser') ? "text-blue-600 font-medium" : "text-gray-600 hover:text-blue-600"}
+              className={isActive('/pokeguesser') ? "text-red-600 font-medium" : "text-gray-600 hover:text-red-600"}
             >
               Game
             </Link>
