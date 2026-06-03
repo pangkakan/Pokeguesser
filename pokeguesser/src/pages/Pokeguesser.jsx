@@ -1,27 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import PokemonStage from "../components/PokemonStage";
 import GenerationSelect from "../components/GenerationSelect";
 import GuessForm from "../components/GuessForm";
+import HintPanel from "../components/HintPanel";
 import ScoreBoard from "../components/ScoreBoard";
 import GameControls from "../components/GameControls";
 
 import { getRandomSpecies, getPokemonFromSpecies } from "../utils/pokeApi.js";
 import { buildPokemonModel, normalizeName } from "../utils/pokemonHelpers.js";
+import { buildHintPool } from "../utils/hintHelpers.js";
 
 export default function Pokeguesser() {
   const [selectedGeneration, setSelectedGeneration] = useState("all");
   const [pokemon, setPokemon] = useState(null);
+  const [hintPool, setHintPool] = useState([]);
+  const [usedHints, setUsedHints] = useState([]);
   const [guess, setGuess] = useState("");
   const [message, setMessage] = useState("");
   const [isSolved, setIsSolved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [roundScore, setRoundScore] = useState(100);
+  const [totalScore, setTotalScore] = useState(0);
+  const [wrongGuesses, setWrongGuesses] = useState(0);
+
+  const canUseHint = useMemo(() => hintPool.length > 0, [hintPool.length]);
 
   async function startRound(generation = selectedGeneration) {
     setIsLoading(true);
     setMessage("");
     setGuess("");
     setIsSolved(false);
+    setUsedHints([]);
+    setRoundScore(100);
+    setWrongGuesses(0);
 
     try {
       const species = await getRandomSpecies(generation);
@@ -30,6 +42,7 @@ export default function Pokeguesser() {
 
       setPokemon(model);
       console.log(pokemonData)
+      setHintPool(buildHintPool(model, generation));
     } catch (error) {
       console.error(error);
       setMessage("Something went wrong when the Pokémon was fetched. Try again.");
@@ -48,6 +61,17 @@ export default function Pokeguesser() {
     startRound(value);
   }
 
+  function handleHint() {
+    if (!hintPool.length || isSolved) return;
+
+    const randomIndex = Math.floor(Math.random() * hintPool.length);
+    const hint = hintPool[randomIndex];
+
+    setHintPool((current) => current.filter((entry) => entry.id !== hint.id));
+    setUsedHints((current) => [...current, hint]);
+    setRoundScore((current) => Math.max(0, current - hint.penalty));
+  }
+
   function handleGuessSubmit(event) {
     event.preventDefault();
 
@@ -55,11 +79,14 @@ export default function Pokeguesser() {
 
     if (normalizeName(guess) === normalizeName(pokemon.name)) {
       setIsSolved(true);
-      setMessage(`Correct! It was ${pokemon.displayName}.`);
+      setTotalScore((current) => current + roundScore);
+      setMessage(`Correct! It was ${pokemon.displayName}. You got ${roundScore} points.`);
       return;
     }
 
-    setMessage("Wrong guess. Try again.");
+    setWrongGuesses((current) => current + 1);
+    setRoundScore((current) => Math.max(0, current - 10));
+    setMessage("Wrong guess. Try again or use a hint.");
     setGuess("");
   }
 
@@ -75,7 +102,7 @@ export default function Pokeguesser() {
                 Who's that Pokémon?
               </h1>
               <p className="mt-3 max-w-2xl text-slate-600">
-                Pokémon works, and guess
+                score, penalties and some hints now:)
               </p>
             </div>
 
@@ -90,13 +117,13 @@ export default function Pokeguesser() {
 
           <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
             <section className="space-y-5">
-              <PokemonStage pokemon={pokemon} isSolved={isSolved} revealPercent={0} />
+              <PokemonStage pokemon={pokemon} revealPercent={0} isSolved={isSolved} />
 
               <ScoreBoard
-                  roundScore={100}
-                  totalScore={0}
-                  wrongGuesses={0}
-                  hintCount={0}
+                  roundScore={roundScore}
+                  totalScore={totalScore}
+                  wrongGuesses={wrongGuesses}
+                  hintCount={usedHints.length}
               />
 
               <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl">
@@ -109,11 +136,11 @@ export default function Pokeguesser() {
                   </div>
 
                   <GameControls
-                      onHint={() => {}}
+                      onHint={handleHint}
                       onNext={() => startRound(selectedGeneration)}
                       isSolved={isSolved}
                       isLoading={isLoading}
-                      canUseHint={false}
+                      canUseHint={canUseHint}
                   />
                 </div>
 
@@ -144,12 +171,7 @@ export default function Pokeguesser() {
               </div>
             </section>
 
-            <aside className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl">
-              <h2 className="text-xl font-black text-slate-900">Hints</h2>
-              <p className="mt-1 text-sm text-slate-500">
-
-              </p>
-            </aside>
+            <HintPanel hints={usedHints} />
           </div>
         </div>
       </main>
