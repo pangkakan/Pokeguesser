@@ -6,7 +6,7 @@ export default function Pokedex() {
 const [pokemonList, setPokemonList] = useState([])
 
     useEffect(() => {
-        async function loadList() {
+            async function loadList() {
             const names = JSON.parse(localStorage.getItem("savedPokemon")) || [];
             const pokemons = await Promise.all(names.map((name) => getPokemonByName(name)));
             setPokemonList(pokemons);
@@ -15,8 +15,12 @@ const [pokemonList, setPokemonList] = useState([])
     }, []);
 
     const handleRemovePokemon = (name) => {
-        console.log(`removed ${name} from pokedex`);
-        //I väntan på att få tillgång till Jonathans metod för borttagninge från localStorage :)
+        const savedPokemon = JSON.parse(localStorage.getItem('savedPokemon') || '[]')
+        const updatedSavedPokemon = savedPokemon.filter((pokemonName) => pokemonName !== name);
+        localStorage.setItem("savedPokemon", JSON.stringify(updatedSavedPokemon));
+        setPokemonList((currentList) =>
+            currentList.filter((pokemon) => pokemon.name !== name)
+        );
     };
 
     return (

@@ -5,8 +5,8 @@ export default function PokedexCard({ pokemon, onDelete }) {
         <div className="relative border rounded p-4 bg-white shadow-sm">
 
             <img
-                src={pokemon.sprites?.other?.['official-artwork']?.front_default}
-                alt={pokemon.name} className="w-full h-48 object-contain bg-gray-100"
+                src={pokemon.sprites?.front_default}
+                alt={pokemon.name} className="w-full h-48 object-contain"
             />
 
             <h3 className="font-bold text-lg capitalize mt-2 text-center">{pokemon.name}</h3>
