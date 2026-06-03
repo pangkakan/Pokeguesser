@@ -1,4 +1,4 @@
-import { GENERATIONS } from "../utils/pokemonGenerations.js";
+import { GENERATIONS } from "../../utils/pokemonGenerations.js";
 
 export default function GenerationSelect({ value, onChange, disabled }) {
   return (

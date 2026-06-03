@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import PokemonStage from "../components/PokemonStage";
-import GenerationSelect from "../components/GenerationSelect";
-import GuessForm from "../components/GuessForm";
-import HintPanel from "../components/HintPanel";
-import ScoreBoard from "../components/ScoreBoard";
-import GameControls from "../components/GameControls";
+import PokemonStage from "../components/game/PokemonStage.jsx";
+import GenerationSelect from "../components/game/GenerationSelect.jsx";
+import GuessForm from "../components/game/GuessForm.jsx";
+import HintPanel from "../components/game/HintPanel.jsx";
+import ScoreBoard from "../components/game/ScoreBoard.jsx";
+import GameControls from "../components/game/GameControls.jsx";
 
 import { getRandomSpecies, getPokemonFromSpecies } from "../api/pokeApi.js";
 import { buildPokemonModel, normalizeName } from "../utils/pokemonHelpers.js";
