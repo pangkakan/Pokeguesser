@@ -18,11 +18,17 @@ Different part of each page is split up into smaller components that can be (mos
 ### Structure
 
 src/
-├── api/ # PokeAPI endpoint functions
-├── components/ # Reusable UI components
-│ └── game/ # Game-specific components
-├── pages/ # Main application pages
-├── utils/ # Helper functions
+
+└── api/ # PokeAPI endpoint functions
+
+└── components/ # Reusable UI components
+
+└───── game/ # Game-specific components
+
+└── pages/ # Main application pages
+
+└── utils/ # Helper functions
+
 └── App.jsx # Router and main app setup
 
 ## Tailwind CSS - for styling and design
