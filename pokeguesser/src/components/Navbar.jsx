@@ -20,7 +20,7 @@ export default function Navbar() {
           <div className="hidden md:flex space-x-4">
             <Link
               to="/"
-              className={isActive('/') ? "text-red-600 font-medium" : "text-gray-600 hover:text-blue-600"}
+              className={isActive('/') ? "text-red-600 font-medium" : "text-gray-600 hover:text-red-600"}
             >
               Home
             </Link>
